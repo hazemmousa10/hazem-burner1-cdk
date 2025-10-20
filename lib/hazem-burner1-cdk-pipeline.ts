@@ -23,7 +23,7 @@ export class HazemBurner1CdkPipeline extends cdk.Stack {
         }),
         commands:["npm ci", "npm run build", "npx cdk synth"],
         additionalInputs: {
-          "../test": pipelines.CodePipelineSource.connection("hazemmousa10/testProject", "main", {
+          "../testProject": pipelines.CodePipelineSource.connection("hazemmousa10/testProject", "master", {
           connectionArn: codeConnection.attrConnectionArn,
           triggerOnPush: true
         }),
