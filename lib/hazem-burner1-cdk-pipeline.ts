@@ -14,13 +14,15 @@ export class HazemBurner1CdkPipeline extends cdk.Stack {
       providerType: "GitHub"
     });
 
-    // const pipeline = new pipelines.CodePipeline(this, 'app-pipeline', {
-    //   synth: new pipelines.ShellStep("Synth", {
-    //     input: pipelines.CodePipelineSource.connection("hazemmousa10/testProject", "master", {
-    //       connectionArn: "arn:aws:codeconnections:eu-north-1:947475729988:connection/45a5d74a-a886-4ae8-a4dc-38aee298b45a"
-    //     }),
-    //     commands:[]
-    //   })
-    // });
+    const pipeline = new pipelines.CodePipeline(this, 'app-pipeline', {
+      synth: new pipelines.ShellStep("Synth", {
+        input: pipelines.CodePipelineSource.connection("hazemmousa10/hazem-burner1-cdk", "main", {
+          connectionArn: codeConnection.attrConnectionArn,
+          triggerOnPush: true
+        }),
+        commands:["npm ci", "npm run build", "npx cdk synth"],
+      }),
+      crossAccountKeys: true,
+    });
   }
 } 
