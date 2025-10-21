@@ -27,24 +27,5 @@ export class EC2Stack extends cdk.Stack {
       machineImage: ec2.MachineImage.latestAmazonLinux2(),
       role: instanceRole,
     });
-
-    // Create a CodeDeploy Application
-    const application = new codedeploy.ServerApplication(this, 'MyCodeDeployApplication', {
-      applicationName: 'MyWebApp',
-    });
-
-    // Create a CodeDeploy Deployment Group
-    new codedeploy.ServerDeploymentGroup(this, 'MyDeploymentGroup', {
-      application,
-      deploymentGroupName: 'MyWebAppDeploymentGroup',
-      deploymentConfig: codedeploy.ServerDeploymentConfig.ALL_AT_ONCE,
-      ec2InstanceTags: new codedeploy.InstanceTagSet({
-        'Name': ['MyInstance'], // Tag the EC2 instance for CodeDeploy
-      }),
-      autoRollback: {
-        failedDeployment: true,
-      },
-    });
-
   }
 }
