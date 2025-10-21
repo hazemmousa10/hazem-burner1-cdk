@@ -2,7 +2,6 @@ import * as cdk from "aws-cdk-lib";
 import * as pipelines from "aws-cdk-lib/pipelines";
 import * as codeconnections from "aws-cdk-lib/aws-codeconnections"
 import { Construct } from "constructs";
-import { ProviderType } from "aws-cdk-lib/aws-codepipeline";
 import { HazemBurner1CdkStage } from "./hazem-burner1-cdk-stage";
 
 export class HazemBurner1CdkPipeline extends cdk.Stack {
@@ -33,7 +32,7 @@ export class HazemBurner1CdkPipeline extends cdk.Stack {
     });
 
     pipeline.addStage(new HazemBurner1CdkStage(this, "Test", {
-      env: { account: '947475729988', region: 'eu-north-1' },
+      env: { account: '947475729988', region: 'eu-west-1' },
     }));
 
   }
