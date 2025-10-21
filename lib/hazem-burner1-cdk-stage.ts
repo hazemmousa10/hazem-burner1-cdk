@@ -6,6 +6,7 @@ export class HazemBurner1CdkStage extends cdk.Stage {
       constructor(scope: Construct, id: string, props?: cdk.StageProps) {
         super(scope, id, props);
 
-        new HazemBurner1CdkStack(this,"ServiceStack");
+        new HazemBurner1CdkStack(this, "ServiceStack");
+        new HazemBurner1CdkStack(this, "ServiceStack2");
     }
 }
