@@ -20,19 +20,10 @@ export class HazemBurner1CdkPipeline extends cdk.Stack {
           connectionArn: codeConnection.attrConnectionArn,
           triggerOnPush: true
         }),
-        additionalInputs: {
-          "../testProject": pipelines.CodePipelineSource.connection("hazemmousa10/testProject", "master", {
-          connectionArn: codeConnection.attrConnectionArn,
-          triggerOnPush: true
-        }),
-        },
         commands:[
           "npm ci",
-          "npm run build", 
+          "npm run build",
           "npx cdk synth",
-          "cd cdk.out",
-          'echo "This is the content of my file." > filename.txt',
-          "cd .."
         ],
       }),
       crossAccountKeys: true,
@@ -41,6 +32,5 @@ export class HazemBurner1CdkPipeline extends cdk.Stack {
     pipeline.addStage(new HazemBurner1CdkStage(this, "Test", {
       env: { account: '947475729988', region: 'eu-west-1' },
     }));
-
   }
 } 

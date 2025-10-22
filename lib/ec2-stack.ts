@@ -3,6 +3,7 @@ import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as codedeploy from 'aws-cdk-lib/aws-codedeploy';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import { Construct } from 'constructs';
+import path from 'path';
 
 export class EC2Stack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -26,6 +27,14 @@ export class EC2Stack extends cdk.Stack {
       instanceType: ec2.InstanceType.of(ec2.InstanceClass.T2, ec2.InstanceSize.MICRO),
       machineImage: ec2.MachineImage.latestAmazonLinux2(),
       role: instanceRole,
+      init: ec2.CloudFormationInit.fromElements(
+        ec2.InitCommand.shellCommand("rm -rf projectGo"),
+        ec2.InitFile.fromAsset("testProject", path.join(__dirname,"projectGo")),
+        ec2.InitCommand.shellCommand("unzip projectGo.zip"),
+        ec2.InitCommand.shellCommand("cd projectGo"),
+        ec2.InitCommand.shellCommand("go build"),
+        ec2.InitCommand.shellCommand("go run testProject >> file.txt")
+      )
     });
   }
 }

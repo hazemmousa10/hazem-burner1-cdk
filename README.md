@@ -16,3 +16,4 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
 ## Useful reads
 * https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.pipelines-readme.html
+* https://blog.serverlessadvocate.com/serverless-aws-cdk-pipeline-best-practices-patterns-part-1-ab80962f109d
